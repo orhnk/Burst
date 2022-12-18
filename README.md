@@ -1,6 +1,6 @@
 # Burst
 
-Blazing fast Discord music bot written in Rust using Serenity and Poise 🚀
+Blazing fast Discord music bot written in Rust using Serenity, Poise and Songbird 🚀
 
 ## Installation
 
@@ -9,7 +9,7 @@ TODO
 ## License
 
 ```
-Burst - A blazing fast Discord music bot written in Rust using Serenity and Poise 🚀
+Burst - A blazing fast Discord music bot written in Rust using Serenity, Poise and Songbird 🚀
 Copyright (C) 2022-present  RGBCube
 
 This program is free software: you can redistribute it and/or modify

@@ -1,6 +1,6 @@
 [package]
 name = "burst"
-description = "Blazing fast Discord music bot written in Rust using Serenity and Poise 🚀"
+description = "Blazing fast Discord music bot written in Rust using Serenity, Poise and Songbird 🚀"
 authors = ["RGBCube"]
 version = "0.0.1"
 license = "AGPL"
