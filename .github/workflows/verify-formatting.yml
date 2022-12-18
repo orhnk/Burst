@@ -15,4 +15,4 @@ jobs:
         uses: dtolnay/rust-toolchain@stable
 
       - name: Verify That The Code Is Formatted
-        run: rustfmt --check ./src/**/*.rs    
+        run: cargo fmt --check
