@@ -11,6 +11,8 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v3
 
-      - name: Verify That The Code Is Formatted
+      - name: Install The Rust Toolchain
         uses: dtolnay/rust-toolchain@stable
+
+      - name: Verify That The Code Is Formatted
         run: rustfmt --check ./src/**/*.rs    
