@@ -11,8 +11,12 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v3
 
-      - name: Install The Rust Toolchain
+      - name: Install Cargo And RustFMT
         uses: dtolnay/rust-toolchain@stable
+        with:
+          toolchain: nightly
+          override: true
+          components: cargo, rustfmt
 
       - name: Cache Cargo Stuff
         uses: actions/cache@v3
@@ -26,4 +30,4 @@ jobs:
           key: ${{ runner.os }}-cargo-${{ hashFiles('**/Cargo.lock') }}
 
       - name: Verify That The Code Is Formatted
-        run: cargo fmt --check
+        run: cargo +nightly fmt --check
