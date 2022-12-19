@@ -11,8 +11,11 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v3
 
-      - name: Install The Rust Toolchain
+      - name: Install Cargo And RustC
         uses: dtolnay/rust-toolchain@stable
+        with:
+          override: true
+          components: cargo, rustc
       
       - name: Cache Cargo Stuff
         uses: actions/cache@v3
