@@ -1,3 +1,5 @@
+mod ping;
+
 use poise::Command;
 
 use crate::{
@@ -5,4 +7,6 @@ use crate::{
     types::Error,
 };
 
-pub const COMMANDS: Vec<Command<Data, Error>> = vec![];
+pub fn commands() -> Vec<Command<Data, Error>> {
+    vec![ping::ping()]
+}

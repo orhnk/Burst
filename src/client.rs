@@ -4,10 +4,7 @@ use std::{
 };
 
 use poise::{
-    serenity_prelude::{
-        Error as SerenityError,
-        GatewayIntents as Intents,
-    },
+    serenity_prelude::GatewayIntents as Intents,
     EditTracker,
     Framework,
     FrameworkOptions,
@@ -15,7 +12,7 @@ use poise::{
 };
 
 use crate::{
-    commands,
+    commands::commands,
     data::Data,
     handlers::{
         dynamic_prefix,
@@ -38,7 +35,7 @@ fn prefix_options() -> PrefixFrameworkOptions<Data, Error> {
 
 fn framework_options() -> FrameworkOptions<Data, Error> {
     FrameworkOptions {
-        commands: commands::COMMANDS,
+        commands: commands(),
         prefix_options: prefix_options(),
         skip_checks_for_owners: true,
         allowed_mentions: None,
@@ -50,12 +47,14 @@ fn framework_options() -> FrameworkOptions<Data, Error> {
     }
 }
 
-pub async fn run() -> Result<(), SerenityError> {
+pub async fn run() -> Result<(), Error> {
     let builder = Framework::builder()
         .setup(setup::handler)
         .options(framework_options())
         .token(env::var("BOT_TOKEN").expect("BOT_TOKEN not set."))
         .intents(Intents::GUILD_MESSAGES | Intents::MESSAGE_CONTENT);
 
-    builder.build().await?.start_autosharded().await
+    builder.build().await?.start_autosharded().await?;
+
+    Ok(())
 }
