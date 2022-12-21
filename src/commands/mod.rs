@@ -5,4 +5,4 @@ use crate::{
     types::Error,
 };
 
-pub const commands: Vec<Command<Data, Error>> = vec![];
+pub const COMMANDS: Vec<Command<Data, Error>> = vec![];

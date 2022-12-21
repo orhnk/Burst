@@ -8,7 +8,7 @@ use crate::{
     types::Error,
 };
 
-async fn handle(ctx: Context<'_, Data, Error>) {
+async fn handle(_ctx: Context<'_, Data, Error>) {
     // TODO
 }
 

@@ -8,7 +8,7 @@ use crate::{
     types::Error,
 };
 
-async fn handle(error: FrameworkError<'_, Data, Error>) {
+async fn handle(_error: FrameworkError<'_, Data, Error>) {
     // TODO
 }
 

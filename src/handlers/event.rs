@@ -11,9 +11,9 @@ use crate::{
 };
 
 async fn handle(
-    ctx: &Context,
-    event: &Event<'_>,
-    framework: FrameworkContext<'_, Data, Error>,
+    _ctx: &Context,
+    _event: &Event<'_>,
+    _framework: FrameworkContext<'_, Data, Error>,
 ) -> Result<(), Error> {
     Ok(())
 }
