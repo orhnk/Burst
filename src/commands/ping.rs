@@ -10,6 +10,7 @@ use crate::{
 
 #[command(prefix_command, slash_command)]
 pub async fn ping(ctx: Context<'_, Data, Error>) -> Result<(), Error> {
-    ctx.say("Pong!").await?;
+    // TODO: Replace this with a real ping, idk how.
+    ctx.say(format!("Pong! `{}ms`", 123)).await?;
     Ok(())
 }
