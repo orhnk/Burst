@@ -1,3 +1,3 @@
-use std::error::Error as StdError;
+use std::error::Error as StdErr;
 
-pub type Error = Box<dyn StdError + Send + Sync>;
+pub type Error = Box<dyn StdErr + Send + Sync>;
