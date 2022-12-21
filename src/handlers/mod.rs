@@ -1,4 +1,4 @@
-mod event;
-mod on_error;
-mod post_command;
-mod pre_command;
+pub mod event;
+pub mod on_error;
+pub mod post_command;
+pub mod pre_command;

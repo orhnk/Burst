@@ -1,11 +1,11 @@
 mod client;
+mod commands;
+mod data;
 mod handlers;
-
-use std::error;
+mod types;
 
 use pretty_env_logger as logger;
-
-type Error = Box<dyn error::Error + Send + Sync>;
+use types::Error;
 
 #[tokio::main]
 async fn main() -> Result<(), Error> {
