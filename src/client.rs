@@ -14,20 +14,13 @@ use poise::{
 use crate::{
     commands::commands,
     data::Data,
-    handlers::{
-        dynamic_prefix,
-        event,
-        on_error,
-        post_command,
-        pre_command,
-        setup,
-    },
+    handlers,
     types::Error,
 };
 
 fn prefix_options() -> PrefixFrameworkOptions<Data, Error> {
     PrefixFrameworkOptions {
-        dynamic_prefix: Some(dynamic_prefix::handler),
+        dynamic_prefix: Some(handlers::dynamic_prefix),
         edit_tracker: Some(EditTracker::for_timespan(Duration::from_secs(60))),
         ..Default::default()
     }
@@ -39,17 +32,17 @@ fn framework_options() -> FrameworkOptions<Data, Error> {
         prefix_options: prefix_options(),
         skip_checks_for_owners: true,
         allowed_mentions: None,
-        event_handler: event::handler,
-        on_error: on_error::handler,
-        pre_command: pre_command::handler,
-        post_command: post_command::handler,
+        event_handler: handlers::event,
+        on_error: handlers::on_error,
+        pre_command: handlers::pre_command,
+        post_command: handlers::post_command,
         ..Default::default()
     }
 }
 
 pub async fn run() -> Result<(), Error> {
     let builder = Framework::builder()
-        .setup(setup::handler)
+        .setup(handlers::setup)
         .options(framework_options())
         .token(env::var("BOT_TOKEN").expect("BOT_TOKEN not set."))
         .intents(Intents::GUILD_MESSAGES | Intents::MESSAGE_CONTENT);
