@@ -36,7 +36,11 @@ fn framework_options() -> FrameworkOptions<Data, Error> {
         commands: commands(),
         prefix_options: prefix_options(),
         skip_checks_for_owners: true,
-        allowed_mentions: Some(AllowedMentions::default()),
+        allowed_mentions: Some({
+            let mut allowed_mentions = AllowedMentions::default();
+            allowed_mentions.replied_user(false);
+            allowed_mentions
+        }),
         event_handler: handlers::event,
         on_error: handlers::on_error,
         pre_command: handlers::pre_command,
