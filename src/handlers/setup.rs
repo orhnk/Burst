@@ -13,9 +13,7 @@ use crate::{
     types::Error,
 };
 
-async fn handle(
-    ctx: &Context
-) -> Result<Data, Error> {
+async fn handle(ctx: &Context) -> Result<Data, Error> {
     ctx.set_activity(Activity::listening("music")).await;
 
     Data::default().await
