@@ -44,7 +44,9 @@ pub async fn run() -> Result<(), Error> {
     let builder = Framework::builder()
         .setup(handlers::setup)
         .options(framework_options())
-        .token(env::var("BOT_TOKEN").expect("BOT_TOKEN not set."))
+        .token(
+            env::var("BOT_TOKEN").expect("Expected the BOT_TOKEN environment variable to be set."),
+        )
         .intents(Intents::GUILD_MESSAGES | Intents::MESSAGE_CONTENT);
 
     builder.build().await?.start_autosharded().await?;
