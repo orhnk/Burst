@@ -78,6 +78,7 @@ pub struct Data {
     pub db: SqlitePool,
     pub colors: Colors,
     pub emotes: Emotes,
+    pub default_prefix: String,
 }
 
 impl Data {
@@ -100,6 +101,7 @@ impl Data {
             db: db_pool,
             colors: Default::default(),
             emotes: Default::default(),
+            default_prefix: string_from_env("DEFAULT_PREFIX"),
         })
     }
 }

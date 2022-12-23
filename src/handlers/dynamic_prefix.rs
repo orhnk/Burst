@@ -8,9 +8,9 @@ use crate::{
     types::Error,
 };
 
-async fn handle(_ctx: PartialContext<'_, Data, Error>) -> Result<Option<String>, Error> {
+async fn handle(ctx: PartialContext<'_, Data, Error>) -> Result<Option<String>, Error> {
     // TODO
-    Ok(Some(">".to_owned()))
+    Ok(Some(ctx.data.default_prefix.clone()))
 }
 
 pub fn handler(
