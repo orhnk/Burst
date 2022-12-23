@@ -21,6 +21,6 @@ async fn handle(ctx: Context<'_, Data, Error>) {
     )
 }
 
-pub fn handler<'a>(ctx: Context<'a, Data, Error>) -> BoxFuture<'a, ()> {
+pub fn handler(ctx: Context<'_, Data, Error>) -> BoxFuture<'_, ()> {
     Box::pin(handle(ctx))
 }

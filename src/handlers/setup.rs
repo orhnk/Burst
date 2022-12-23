@@ -20,7 +20,7 @@ async fn handle(
 ) -> Result<Data, Error> {
     ctx.set_activity(Activity::listening("music")).await;
 
-    Ok(Data::default().await?)
+    Data::default().await
 }
 
 pub fn handler<'a>(
