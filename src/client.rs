@@ -1,8 +1,10 @@
 use std::{
     env,
+    process::abort,
     time::Duration,
 };
 
+use log::error;
 use poise::{
     serenity_prelude::GatewayIntents as Intents,
     EditTracker,
@@ -44,9 +46,10 @@ pub async fn run() -> Result<(), Error> {
     let builder = Framework::builder()
         .setup(handlers::setup)
         .options(framework_options())
-        .token(
-            env::var("BOT_TOKEN").expect("Expected the BOT_TOKEN environment variable to be set."),
-        )
+        .token(env::var("BOT_TOKEN").unwrap_or_else(|_| {
+            error!("Expected the BOT_TOKEN environment variable to be set.");
+            abort();
+        }))
         .intents(Intents::GUILD_MESSAGES | Intents::MESSAGE_CONTENT);
 
     builder.build().await?.start_autosharded().await?;

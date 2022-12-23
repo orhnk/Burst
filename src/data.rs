@@ -1,9 +1,13 @@
 use std::{
     env,
+    process::abort,
     time::Duration,
 };
 
-use log::LevelFilter;
+use log::{
+    error,
+    LevelFilter,
+};
 use poise::serenity_prelude::Color;
 use sqlx::{
     sqlite::{
@@ -17,21 +21,23 @@ use sqlx::{
 use crate::types::Error;
 
 fn string_from_env(name: &str) -> String {
-    env::var(name)
-        .expect(format!("Expected the key '{name}' to be set in the environment.").as_str())
+    env::var(name).unwrap_or_else(|_| {
+        error!("Expected the key '{name}' to be set in the environment.");
+        abort();
+    })
 }
 
 fn color_from_env(name: &str) -> Color {
     let raw = string_from_env(name);
 
     Color::from(
-        raw.parse::<u32>().expect(
-            format!(
-                "Expected the value for the color key '{name}' to be a valid color representation \
-                 (got '{raw}')."
-            )
-            .as_str(),
-        ),
+        u32::from_str_radix(raw.trim_start_matches("#"), 16).unwrap_or_else(|_| {
+            error!(
+                "Expected the value for the color key '{name}' to be a valid hex code (got \
+                 '{raw}')."
+            );
+            abort();
+        }),
     )
 }
 
