@@ -1,3 +1,4 @@
+use log::info;
 use poise::{
     BoxFuture,
     Context,
@@ -8,8 +9,16 @@ use crate::{
     types::Error,
 };
 
-async fn handle(_ctx: Context<'_, Data, Error>) {
-    // TODO
+async fn handle(ctx: Context<'_, Data, Error>) {
+    let author = ctx.author();
+
+    info!(
+        "Command '{}' run ended for caller {}#{} (ID: {}).",
+        ctx.command().name,
+        author.name,
+        author.discriminator,
+        author.id,
+    )
 }
 
 pub fn handler<'a>(ctx: Context<'a, Data, Error>) -> BoxFuture<'a, ()> {
