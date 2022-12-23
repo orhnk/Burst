@@ -1,3 +1,4 @@
+use log::error;
 use poise::{
     BoxFuture,
     FrameworkError,
@@ -8,10 +9,23 @@ use crate::{
     types::Error,
 };
 
-async fn handle(_error: FrameworkError<'_, Data, Error>) {
-    // TODO
+#[allow(clippy::match_single_binding)] // TODO: Remove this when the error handler is implemented.
+async fn handle(error: FrameworkError<'_, Data, Error>) {
+    if let Some(ctx) = error.ctx() {
+        match error {
+            _ => {
+                error!(
+                    "An error has occured while executing the command {}",
+                    ctx.command().qualified_name
+                );
+            },
+        }
+    }
+    else {
+        error!("An uncaught error has occured: {error:?}");
+    }
 }
 
-pub fn handler<'a>(error: FrameworkError<'a, Data, Error>) -> BoxFuture<'a, ()> {
+pub fn handler(error: FrameworkError<'_, Data, Error>) -> BoxFuture<'_, ()> {
     Box::pin(handle(error))
 }
