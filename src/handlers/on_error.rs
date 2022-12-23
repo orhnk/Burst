@@ -9,7 +9,7 @@ use crate::{
     types::Error,
 };
 
-#[allow(clippy::match_single_binding)] // TODO: Remove this when the error handler is implemented.
+#[allow(unused_must_use, clippy::match_single_binding)] // TODO: Remove this when the error handler is implemented.
 async fn handle(error: FrameworkError<'_, Data, Error>) {
     if let Some(ctx) = error.ctx() {
         match error {
@@ -18,6 +18,19 @@ async fn handle(error: FrameworkError<'_, Data, Error>) {
                     "An error has occured while executing the command {}",
                     ctx.command().qualified_name
                 );
+
+                ctx.send(|builder| {
+                    builder.reply(true);
+                    builder.embed(|embed| {
+                        embed.color(ctx.data().colors.error);
+                        embed.title(format!(
+                            "{} An unknown error has occured.",
+                            ctx.data().emotes.error
+                        ));
+                        embed.description("This incident will be reported.")
+                    })
+                })
+                .await;
             },
         }
     }
