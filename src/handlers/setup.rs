@@ -18,7 +18,7 @@ async fn handle(
     _ready: &Ready,
     _framework: &Framework<Data, Error>,
 ) -> Result<Data, Error> {
-    ctx.set_activity(Activity::listening("to music")).await;
+    ctx.set_activity(Activity::listening("music")).await;
 
     Ok(Data::default().await?)
 }
