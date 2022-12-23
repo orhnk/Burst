@@ -6,7 +6,10 @@ use std::{
 
 use log::error;
 use poise::{
-    serenity_prelude::GatewayIntents as Intents,
+    serenity_prelude::{
+        CreateAllowedMentions as AllowedMentions,
+        GatewayIntents as Intents,
+    },
     EditTracker,
     Framework,
     FrameworkOptions,
@@ -33,7 +36,7 @@ fn framework_options() -> FrameworkOptions<Data, Error> {
         commands: commands(),
         prefix_options: prefix_options(),
         skip_checks_for_owners: true,
-        allowed_mentions: None,
+        allowed_mentions: Some(AllowedMentions::default()),
         event_handler: handlers::event,
         on_error: handlers::on_error,
         pre_command: handlers::pre_command,

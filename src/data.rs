@@ -30,15 +30,12 @@ fn string_from_env(name: &str) -> String {
 fn color_from_env(name: &str) -> Color {
     let raw = &string_from_env(name);
 
-    Color::from(
-        u32::from_str_radix(raw, 16).unwrap_or_else(|_| {
-            error!(
-                "Expected the value for the color key '{name}' to be a valid hex code (got \
-                 '{raw}')."
-            );
-            abort();
-        }),
-    )
+    Color::from(u32::from_str_radix(raw, 16).unwrap_or_else(|_| {
+        error!(
+            "Expected the value for the color key '{name}' to be a valid hex code (got '{raw}')."
+        );
+        abort();
+    }))
 }
 
 #[derive(Debug)]
