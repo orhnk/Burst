@@ -4,7 +4,7 @@ mod data;
 mod handlers;
 mod types;
 
-use pretty_env_logger as logger;
+use env_logger as logger;
 use types::Error;
 
 #[allow(unused_must_use)]
@@ -12,7 +12,7 @@ use types::Error;
 async fn main() -> Result<(), Error> {
     dotenv::dotenv();
 
-    logger::init_custom_env("LOG_LEVEL");
+    logger::init_from_env("LOG_LEVEL");
 
     client::run().await
 }
