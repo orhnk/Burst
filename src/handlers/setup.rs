@@ -1,6 +1,3 @@
-use std::time::Duration;
-
-use log::LevelFilter;
 use poise::{
     serenity_prelude::{
         Activity,
@@ -9,13 +6,6 @@ use poise::{
     },
     BoxFuture,
     Framework,
-};
-use sqlx::{
-    sqlite::{
-        SqliteConnectOptions,
-        SqlitePoolOptions,
-    },
-    ConnectOptions,
 };
 
 use crate::{
@@ -30,7 +20,7 @@ async fn handle(
 ) -> Result<Data, Error> {
     ctx.set_activity(Activity::listening("to music")).await;
 
-    Ok(Data::default())
+    Ok(Data::default().await?)
 }
 
 pub fn handler<'a>(

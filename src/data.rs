@@ -1,12 +1,17 @@
-use sqlx::SqlitePool;
+use std::time::Duration;
+
+use log::LevelFilter;
+use sqlx::{SqlitePool, sqlite::{SqliteConnectOptions, SqlitePoolOptions}, ConnectOptions as _};
+
+use crate::types::Error;
 
 #[derive(Debug)]
 pub struct Data {
     pub db: SqlitePool,
 }
 
-impl Default for Data {
-    async fn default() -> Self {
+impl  Data {
+    pub async fn default() -> Result<Self, Error> {
         let mut db_options = SqliteConnectOptions::default()
             .filename("burst.db")
             .create_if_missing(true);
@@ -21,6 +26,6 @@ impl Default for Data {
             .connect_with(db_options.clone())
             .await?;
 
-        Self { db: db_pool }
+        Ok(Self { db: db_pool })
     }
 }
