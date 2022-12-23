@@ -14,9 +14,7 @@ use crate::{
 };
 
 async fn handle(
-    ctx: &Context,
-    _ready: &Ready,
-    _framework: &Framework<Data, Error>,
+    ctx: &Context
 ) -> Result<Data, Error> {
     ctx.set_activity(Activity::listening("music")).await;
 
@@ -25,8 +23,8 @@ async fn handle(
 
 pub fn handler<'a>(
     ctx: &'a Context,
-    ready: &'a Ready,
-    framework: &'a Framework<Data, Error>,
+    _ready: &'a Ready,
+    _framework: &'a Framework<Data, Error>,
 ) -> BoxFuture<'a, Result<Data, Error>> {
-    Box::pin(handle(ctx, ready, framework))
+    Box::pin(handle(ctx))
 }
