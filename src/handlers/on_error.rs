@@ -15,7 +15,7 @@ async fn handle(error: FrameworkError<'_, Data, Error>) {
         match error {
             _ => {
                 error!(
-                    "An error has occured while executing the command {}",
+                    "An error has occured while executing the command {}: {error:?}",
                     ctx.command().qualified_name
                 );
 
