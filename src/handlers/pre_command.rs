@@ -13,7 +13,7 @@ async fn handle(ctx: Context<'_, Data, Error>) {
     let author = ctx.author();
 
     info!(
-        "{}#{} ({}) ran command {}",
+        "{}#{} (ID: {}) ran command '{}'.",
         author.name,
         author.discriminator,
         author.id,
