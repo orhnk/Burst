@@ -19,6 +19,7 @@ pub async fn ping(ctx: Context<'_, Data, Error>) -> Result<(), Error> {
 
     let message = ctx
         .send(|builder| {
+            builder.reply(true);
             builder.embed(|embed| {
                 embed.color(color);
                 embed.title(format!("{} Pong!", emote))
