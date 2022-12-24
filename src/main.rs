@@ -3,6 +3,7 @@ mod commands;
 mod data;
 mod handlers;
 mod types;
+mod util;
 
 use env_logger as logger;
 use types::MaybeError;
