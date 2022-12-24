@@ -20,7 +20,10 @@ use crate::{
     commands::commands,
     data::Data,
     handlers,
-    types::Error,
+    types::{
+        Error,
+        MaybeError,
+    },
 };
 
 #[inline]
@@ -51,7 +54,7 @@ fn framework_options() -> FrameworkOptions<Data, Error> {
     }
 }
 
-pub async fn run() -> Result<(), Error> {
+pub async fn run() -> MaybeError {
     let builder = Framework::builder()
         .setup(handlers::setup)
         .options(framework_options())

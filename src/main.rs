@@ -5,11 +5,11 @@ mod handlers;
 mod types;
 
 use env_logger as logger;
-use types::Error;
+use types::MaybeError;
 
 #[allow(unused_must_use)]
 #[tokio::main]
-async fn main() -> Result<(), Error> {
+async fn main() -> MaybeError {
     dotenv::dotenv();
 
     logger::init_from_env("LOG_LEVEL");

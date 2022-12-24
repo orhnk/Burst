@@ -7,8 +7,8 @@ use poise::{
 use crate::{
     data::Data,
     types::{
-        Error,
         FrameworkContext,
+        MaybeError,
     },
 };
 
@@ -16,7 +16,7 @@ async fn handle(
     _ctx: &Context,
     _event: &Event<'_>,
     _framework: FrameworkContext<'_>,
-) -> Result<(), Error> {
+) -> MaybeError {
     Ok(())
 }
 
@@ -25,6 +25,6 @@ pub fn handler<'a>(
     event: &'a Event<'a>,
     framework: FrameworkContext<'a>,
     _: &'a Data,
-) -> BoxFuture<'a, Result<(), Error>> {
+) -> BoxFuture<'a, MaybeError> {
     Box::pin(handle(ctx, event, framework))
 }

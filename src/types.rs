@@ -11,3 +11,5 @@ pub type PartialContext<'a> = poise::PartialContext<'a, Data, Error>;
 pub type FrameworkContext<'a> = poise::FrameworkContext<'a, Data, Error>;
 
 pub type FrameworkError<'a> = poise::FrameworkError<'a, Data, Error>;
+
+pub type MaybeError = Result<(), Error>;
