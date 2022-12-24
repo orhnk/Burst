@@ -51,7 +51,7 @@ async fn handle(error: FrameworkError<'_>) {
                         ctx.data().emotes.error
                     ));
                     if let Some(input) = input {
-                        embed.description(format!("Invalid argument: {}", input));
+                        embed.description(format!("Invalid argument: {input}"));
                     }
                     embed
                 })

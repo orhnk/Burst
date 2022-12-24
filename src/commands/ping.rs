@@ -8,7 +8,13 @@ use crate::types::{
 };
 
 /// Returns the latency between the bot and Discord.
-#[command(prefix_command, slash_command, track_edits, broadcast_typing, category = "Miscellaneous")]
+#[command(
+    prefix_command,
+    slash_command,
+    track_edits,
+    broadcast_typing,
+    category = "Miscellaneous"
+)]
 pub async fn ping(ctx: Context<'_>) -> MaybeError {
     let color = ctx.data().colors.info;
     let emote = &ctx.data().emotes.info;
@@ -20,7 +26,7 @@ pub async fn ping(ctx: Context<'_>) -> MaybeError {
             builder.reply(true);
             builder.embed(|embed| {
                 embed.color(color);
-                embed.title(format!("{} Pong!", emote))
+                embed.title(format!("{emote} Pong!"))
             })
         })
         .await?;
@@ -32,8 +38,7 @@ pub async fn ping(ctx: Context<'_>) -> MaybeError {
             builder.embed(|embed| {
                 embed.color(color);
                 embed.title(format!(
-                    "{} Pong! `{}ms`",
-                    emote,
+                    "{emote} Pong! `{}ms`",
                     after.duration_since(before).as_millis()
                 ))
             })
