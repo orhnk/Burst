@@ -1,7 +1,4 @@
-use poise::{
-    command,
-    serenity_prelude::ButtonStyle,
-};
+use poise::command;
 
 use crate::types::{
     Context,
