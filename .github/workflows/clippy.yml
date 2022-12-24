@@ -1,4 +1,4 @@
-name: Verify Formatting
+name: Clippy
 
 on:
   - pull_request
