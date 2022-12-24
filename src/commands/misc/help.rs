@@ -25,16 +25,32 @@ async fn help_specific_command(ctx: Context<'_>, command_name: String) -> MaybeE
 
     let command = ctx.framework().options.commands.iter().find(|&command| {
         !command.hide_in_help
-            && command
+            && (command
                 .qualified_name
                 .eq_ignore_ascii_case(command_name.as_str())
-            || command
-                .context_menu_name
-                .unwrap_or("\0")
-                .eq_ignore_ascii_case(command_name.as_str())
+                || command
+                    .context_menu_name
+                    .unwrap_or("\0")
+                    .eq_ignore_ascii_case(command_name.as_str()))
     });
 
     match command {
+        None => {
+            ctx.send(|builder| {
+                builder.reply(true);
+                builder.ephemeral(true);
+                builder.embed(|embed| {
+                    embed.color(data.colors.error);
+                    embed.title(format!(
+                        "{} Command `/{}` not found.",
+                        data.emotes.error,
+                        cut_excess(command_name.replace('`', ""), 32)
+                    ))
+                })
+            })
+            .await?;
+        },
+
         Some(command) => {
             ctx.send(|builder| {
                 builder.reply(true);
@@ -64,22 +80,6 @@ async fn help_specific_command(ctx: Context<'_>, command_name: String) -> MaybeE
                     }
 
                     embed
-                })
-            })
-            .await?;
-        },
-
-        None => {
-            ctx.send(|builder| {
-                builder.reply(true);
-                builder.ephemeral(true);
-                builder.embed(|embed| {
-                    embed.color(data.colors.error);
-                    embed.title(format!(
-                        "{} Command `/{}` not found.",
-                        data.emotes.error,
-                        cut_excess(command_name.replace('`', ""), 32)
-                    ))
                 })
             })
             .await?;
