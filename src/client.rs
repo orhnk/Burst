@@ -1,10 +1,8 @@
 use std::{
-    env,
-    process::abort,
+    sync::Arc,
     time::Duration,
 };
 
-use log::error;
 use poise::{
     serenity_prelude::{
         CreateAllowedMentions as AllowedMentions,
@@ -55,14 +53,18 @@ fn framework_options() -> FrameworkOptions<Data, Error> {
     }
 }
 
-pub async fn run() -> MaybeError {
+#[inline]
+async fn client() -> Result<Arc<Framework<Data, Error>>, Error> {
     let builder = Framework::builder()
-        .setup(handlers::setup)
-        .options(framework_options())
         .token(string_from_env("BOT_TOKEN"))
-        .intents(Intents::GUILD_MESSAGES | Intents::MESSAGE_CONTENT);
+        .intents(Intents::GUILD_MESSAGES | Intents::MESSAGE_CONTENT)
+        .options(framework_options())
+        .setup(handlers::setup);
 
-    builder.build().await?.start_autosharded().await?;
+    Ok(builder.build().await?)
+}
 
+pub async fn run() -> MaybeError {
+    client().await?.start_autosharded().await?;
     Ok(())
 }
