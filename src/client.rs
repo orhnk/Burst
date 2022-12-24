@@ -24,6 +24,7 @@ use crate::{
         Error,
         MaybeError,
     },
+    util::string_from_env,
 };
 
 #[inline]
@@ -58,10 +59,7 @@ pub async fn run() -> MaybeError {
     let builder = Framework::builder()
         .setup(handlers::setup)
         .options(framework_options())
-        .token(env::var("BOT_TOKEN").unwrap_or_else(|_| {
-            error!("Expected the BOT_TOKEN environment variable to be set.");
-            abort();
-        }))
+        .token(string_from_env("BOT_TOKEN"))
         .intents(Intents::GUILD_MESSAGES | Intents::MESSAGE_CONTENT);
 
     builder.build().await?.start_autosharded().await?;
