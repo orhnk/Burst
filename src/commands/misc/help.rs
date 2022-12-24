@@ -65,7 +65,7 @@ async fn help_command(ctx: Context<'_>, command_name: String) -> MaybeError {
                     embed.title(format!(
                         "{} Command `/{}` not found.",
                         data.emotes.error,
-                        cut_excess(command_name.replace('`', ""), 16)
+                        cut_excess(command_name.replace('`', ""), 32)
                     ))
                 })
             })
