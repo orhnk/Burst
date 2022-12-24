@@ -1,12 +1,7 @@
-mod help;
-mod ping;
-use poise::Command;
+mod misc;
 
-use crate::{
-    data::Data,
-    types::Error,
-};
+use crate::types::CommandVec;
 
-pub fn commands() -> Vec<Command<Data, Error>> {
-    vec![help::help(), ping::ping()]
+pub fn commands() -> CommandVec {
+    vec![misc::commands()].into_iter().flatten().collect()
 }
