@@ -1,3 +1,5 @@
+use std::result::Result as StdResult;
+
 use poise::BoxFuture;
 
 use crate::types::{
@@ -5,7 +7,7 @@ use crate::types::{
     PartialContext,
 };
 
-type Result = std::result::Result<Option<String>, Error>;
+type Result = StdResult<Option<String>, Error>;
 
 async fn handle(ctx: PartialContext<'_>) -> Result {
     // TODO
