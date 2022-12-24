@@ -7,7 +7,7 @@ use crate::types::{
     MaybeError,
 };
 
-/// Returns the latency between the bot and Discord.
+/// Sends the latency between the bot and Discord.
 #[command(
     prefix_command,
     slash_command,
