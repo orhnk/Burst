@@ -66,5 +66,6 @@ async fn client() -> Result<Arc<Framework<Data, Error>>, Error> {
 
 pub async fn run() -> MaybeError {
     client().await?.start_autosharded().await?;
+
     Ok(())
 }

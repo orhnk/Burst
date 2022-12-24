@@ -1,5 +1,5 @@
+mod help;
 mod ping;
-
 use poise::Command;
 
 use crate::{
@@ -8,5 +8,5 @@ use crate::{
 };
 
 pub fn commands() -> Vec<Command<Data, Error>> {
-    vec![ping::ping()]
+    vec![help::help(), ping::ping()]
 }
