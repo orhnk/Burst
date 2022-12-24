@@ -8,7 +8,19 @@ use crate::{
     util::cut_excess,
 };
 
-async fn help_command(ctx: Context<'_>, command_name: String) -> MaybeError {
+async fn help_autocomplete<'a>(
+    ctx: Context<'a>,
+    query: &'a str,
+) -> impl Iterator<Item = String> + 'a {
+    ctx.framework()
+        .options
+        .commands
+        .iter()
+        .filter(move |&command| !command.hide_in_help && command.name.contains(query))
+        .map(|command| command.name.to_string())
+}
+
+async fn help_specific_command(ctx: Context<'_>, command_name: String) -> MaybeError {
     let data = ctx.data();
 
     let command = ctx.framework().options.commands.iter().find(|&command| {
@@ -76,7 +88,7 @@ async fn help_command(ctx: Context<'_>, command_name: String) -> MaybeError {
     Ok(())
 }
 
-async fn help_all(ctx: Context<'_>) -> MaybeError {
+async fn help_all_commands(ctx: Context<'_>) -> MaybeError {
     // TODO
     ctx.say("not implemented yet lol cope").await?;
 
@@ -95,12 +107,12 @@ pub async fn help(
     ctx: Context<'_>,
     #[description = "The command to get help about. Leave blank if you want a list of all \
                      commands."]
-    #[autocomplete = "poise::builtins::autocomplete_command"]
+    #[autocomplete = "help_autocomplete"]
     command: Option<String>,
 ) -> MaybeError {
     match command {
-        Some(command) => help_command(ctx, command).await?,
-        None => help_all(ctx).await?,
+        Some(command) => help_specific_command(ctx, command).await?,
+        None => help_all_commands(ctx).await?,
     }
 
     Ok(())
