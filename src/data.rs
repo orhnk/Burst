@@ -1,6 +1,7 @@
 use std::{
     env,
     process::abort,
+    str::FromStr,
     time::Duration,
 };
 
@@ -87,9 +88,9 @@ pub struct Data {
 
 impl Data {
     pub async fn default() -> Result<Self, Error> {
-        let mut db_options = SqliteConnectOptions::default()
-            .filename("burst.db")
-            .create_if_missing(true);
+        let mut db_options =
+            SqliteConnectOptions::from_str(string_from_env("DATABASE_URL").as_str())?
+                .create_if_missing(true);
 
         let db_options = db_options
             .log_statements(LevelFilter::Debug)
@@ -101,11 +102,28 @@ impl Data {
             .connect_with(db_options.clone())
             .await?;
 
+        let default_prefix = string_from_env("DEFAULT_PREFIX");
+
+        // Create the tables if they don't exist.
+        //{
+        //    sqlx::query!(
+        //        r#"image.png
+        //        CREATE TABLE IF NOT EXISTS prefixes (
+        //            id INTEGER NOT NULL PRIMARY KEY,
+        //            prefix TEXT NOT NULL DEFAULT ?
+        //        )
+        //        "#,
+        //        default_prefix,
+        //    )
+        //    .execute(&db_pool)
+        //    .await?;
+        //}
+
         Ok(Self {
             db: db_pool,
             colors: Default::default(),
             emotes: Default::default(),
-            default_prefix: string_from_env("DEFAULT_PREFIX"),
+            default_prefix: default_prefix,
         })
     }
 }
