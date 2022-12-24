@@ -65,10 +65,8 @@ async fn handle(error: FrameworkError<'_>) {
             .await;
         },
 
-        FrameworkError::UnknownCommand { .. } => {
-            if let Context::Prefix(pref_ctx) = ctx {
-                pref_ctx.msg.react(&ctx.http(), '❓');
-            }
+        FrameworkError::UnknownCommand { msg: message, .. } => {
+            message.react(&ctx.http(), '❓').await;
         },
 
         _ => uncaught_error(ctx, error).await,
