@@ -72,6 +72,7 @@ async fn help_specific_command(ctx: Context<'_>, command_name: String) -> MaybeE
         None => {
             ctx.send(|builder| {
                 builder.reply(true);
+                builder.ephemeral(true);
                 builder.embed(|embed| {
                     embed.color(data.colors.error);
                     embed.title(format!(

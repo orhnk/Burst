@@ -44,15 +44,18 @@ async fn handle(error: FrameworkError<'_>) {
         FrameworkError::ArgumentParse { input, .. } => {
             ctx.send(|builder| {
                 builder.reply(true);
+                builder.ephemeral(true);
                 builder.embed(|embed| {
                     embed.color(ctx.data().colors.error);
                     embed.title(format!(
                         "{} Invalid arguments provided.",
                         ctx.data().emotes.error
                     ));
+
                     if let Some(input) = input {
                         embed.description(format!("Invalid argument: {input}"));
                     }
+
                     embed
                 })
             })
