@@ -1,17 +1,13 @@
 use log::error;
-use poise::{
-    BoxFuture,
+use poise::BoxFuture;
+
+use crate::types::{
     Context,
     FrameworkError,
 };
 
-use crate::{
-    data::Data,
-    types::Error,
-};
-
 #[allow(unused_must_use)]
-async fn uncaught_error(ctx: Context<'_, Data, Error>, error: FrameworkError<'_, Data, Error>) {
+async fn uncaught_error(ctx: Context<'_>, error: FrameworkError<'_>) {
     let data = ctx.data();
 
     error!(
@@ -34,7 +30,7 @@ async fn uncaught_error(ctx: Context<'_, Data, Error>, error: FrameworkError<'_,
 }
 
 #[allow(unused_must_use)]
-async fn handle(error: FrameworkError<'_, Data, Error>) {
+async fn handle(error: FrameworkError<'_>) {
     let ctx = error.ctx();
 
     if ctx.is_none() {
@@ -66,6 +62,6 @@ async fn handle(error: FrameworkError<'_, Data, Error>) {
     }
 }
 
-pub fn handler(error: FrameworkError<'_, Data, Error>) -> BoxFuture<'_, ()> {
+pub fn handler(error: FrameworkError<'_>) -> BoxFuture<'_, ()> {
     Box::pin(handle(error))
 }

@@ -1,20 +1,17 @@
-use poise::{
-    BoxFuture,
+use poise::BoxFuture;
+
+use crate::types::{
+    Error,
     PartialContext,
 };
 
-use crate::{
-    data::Data,
-    types::Error,
-};
+type Result = std::result::Result<Option<String>, Error>;
 
-async fn handle(ctx: PartialContext<'_, Data, Error>) -> Result<Option<String>, Error> {
+async fn handle(ctx: PartialContext<'_>) -> Result {
     // TODO
     Ok(Some(ctx.data.default_prefix.clone()))
 }
 
-pub fn handler(
-    ctx: PartialContext<'_, Data, Error>,
-) -> BoxFuture<'_, Result<Option<String>, Error>> {
+pub fn handler(ctx: PartialContext<'_>) -> BoxFuture<'_, Result> {
     Box::pin(handle(ctx))
 }

@@ -1,18 +1,15 @@
 use std::time;
 
-use poise::{
-    command,
-    Context,
-};
+use poise::command;
 
-use crate::{
-    data::Data,
-    types::Error,
+use crate::types::{
+    Context,
+    Error,
 };
 
 /// Returns the latency between the bot and Discord.
 #[command(prefix_command, slash_command, track_edits, broadcast_typing)]
-pub async fn ping(ctx: Context<'_, Data, Error>) -> Result<(), Error> {
+pub async fn ping(ctx: Context<'_>) -> Result<(), Error> {
     let color = ctx.data().colors.info;
     let emote = &ctx.data().emotes.info;
 

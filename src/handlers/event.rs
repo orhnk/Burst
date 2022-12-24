@@ -2,18 +2,20 @@ use poise::{
     serenity_prelude::Context,
     BoxFuture,
     Event,
-    FrameworkContext,
 };
 
 use crate::{
     data::Data,
-    types::Error,
+    types::{
+        Error,
+        FrameworkContext,
+    },
 };
 
 async fn handle(
     _ctx: &Context,
     _event: &Event<'_>,
-    _framework: FrameworkContext<'_, Data, Error>,
+    _framework: FrameworkContext<'_>,
 ) -> Result<(), Error> {
     Ok(())
 }
@@ -21,7 +23,7 @@ async fn handle(
 pub fn handler<'a>(
     ctx: &'a Context,
     event: &'a Event<'a>,
-    framework: FrameworkContext<'a, Data, Error>,
+    framework: FrameworkContext<'a>,
     _: &'a Data,
 ) -> BoxFuture<'a, Result<(), Error>> {
     Box::pin(handle(ctx, event, framework))

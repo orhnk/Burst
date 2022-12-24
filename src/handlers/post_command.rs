@@ -1,15 +1,9 @@
 use log::info;
-use poise::{
-    BoxFuture,
-    Context,
-};
+use poise::BoxFuture;
 
-use crate::{
-    data::Data,
-    types::Error,
-};
+use crate::types::Context;
 
-async fn handle(ctx: Context<'_, Data, Error>) {
+async fn handle(ctx: Context<'_>) {
     let author = ctx.author();
 
     info!(
@@ -21,6 +15,6 @@ async fn handle(ctx: Context<'_, Data, Error>) {
     )
 }
 
-pub fn handler(ctx: Context<'_, Data, Error>) -> BoxFuture<'_, ()> {
+pub fn handler(ctx: Context<'_>) -> BoxFuture<'_, ()> {
     Box::pin(handle(ctx))
 }
