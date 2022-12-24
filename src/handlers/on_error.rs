@@ -1,5 +1,8 @@
 use log::error;
-use poise::BoxFuture;
+use poise::{
+    serenity_prelude::CacheHttp as _,
+    BoxFuture,
+};
 
 use crate::types::{
     Context,
@@ -61,6 +64,13 @@ async fn handle(error: FrameworkError<'_>) {
             })
             .await;
         },
+
+        FrameworkError::UnknownCommand { .. } => {
+            if let Context::Prefix(pref_ctx) = ctx {
+                pref_ctx.msg.react(&ctx.http(), '❓');
+            }
+        },
+
         _ => uncaught_error(ctx, error).await,
     }
 }
