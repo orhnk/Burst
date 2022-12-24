@@ -42,7 +42,7 @@ async fn help_specific_command(ctx: Context<'_>, command_name: String) -> MaybeE
                 builder.embed(|embed| {
                     embed.color(data.colors.error);
                     embed.title(format!(
-                        "{} Command `/{}` not found.",
+                        "{} Command `/{}` not found",
                         data.emotes.error,
                         cut_excess(command_name.replace('`', ""), 32)
                     ))
