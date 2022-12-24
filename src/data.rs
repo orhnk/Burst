@@ -20,6 +20,7 @@ use sqlx::{
 
 use crate::types::Error;
 
+#[inline]
 fn string_from_env(name: &str) -> String {
     env::var(name).unwrap_or_else(|_| {
         error!("Expected the key '{name}' to be set in the environment.");

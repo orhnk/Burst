@@ -23,6 +23,7 @@ use crate::{
     types::Error,
 };
 
+#[inline]
 fn prefix_options() -> PrefixFrameworkOptions<Data, Error> {
     PrefixFrameworkOptions {
         dynamic_prefix: Some(handlers::dynamic_prefix),
@@ -31,6 +32,7 @@ fn prefix_options() -> PrefixFrameworkOptions<Data, Error> {
     }
 }
 
+#[inline]
 fn framework_options() -> FrameworkOptions<Data, Error> {
     FrameworkOptions {
         commands: commands(),
