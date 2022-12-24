@@ -12,9 +12,10 @@ async fn help_command(ctx: Context<'_>, command_name: String) -> MaybeError {
     let data = ctx.data();
 
     let command = ctx.framework().options.commands.iter().find(|&command| {
-        command
-            .qualified_name
-            .eq_ignore_ascii_case(command_name.as_str())
+        !command.hide_in_help
+            && command
+                .qualified_name
+                .eq_ignore_ascii_case(command_name.as_str())
             || command
                 .context_menu_name
                 .unwrap_or("\0")
