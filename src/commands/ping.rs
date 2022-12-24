@@ -13,6 +13,7 @@ use crate::types::{
     slash_command,
     track_edits,
     broadcast_typing,
+    aliases("latency"),
     category = "Miscellaneous"
 )]
 pub async fn ping(ctx: Context<'_>) -> MaybeError {
