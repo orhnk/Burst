@@ -13,8 +13,8 @@ use crate::types::{
     slash_command,
     track_edits,
     broadcast_typing,
-    aliases("latency"),
-    category = "Miscellaneous"
+    category = "Miscellaneous",
+    aliases("latency")
 )]
 pub async fn ping(ctx: Context<'_>) -> MaybeError {
     let color = ctx.data().colors.info;
