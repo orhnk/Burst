@@ -1,19 +1,24 @@
 use poise::command;
 
-use crate::types::{
-    Context,
-    MaybeError,
+use crate::{
+    types::{
+        Context,
+        MaybeError,
+    },
+    util::cut_excess,
 };
 
-async fn help_command(ctx: Context<'_>, command_name: &str) -> MaybeError {
+async fn help_command(ctx: Context<'_>, command_name: String) -> MaybeError {
     let data = ctx.data();
 
     let command = ctx.framework().options.commands.iter().find(|&command| {
-        command.qualified_name.eq_ignore_ascii_case(command_name)
+        command
+            .qualified_name
+            .eq_ignore_ascii_case(command_name.as_str())
             || command
                 .context_menu_name
                 .unwrap_or("\0")
-                .eq_ignore_ascii_case(command_name)
+                .eq_ignore_ascii_case(command_name.as_str())
     });
 
     match command {
@@ -57,8 +62,9 @@ async fn help_command(ctx: Context<'_>, command_name: &str) -> MaybeError {
                 builder.embed(|embed| {
                     embed.color(data.colors.error);
                     embed.title(format!(
-                        "{} Command `/{command_name}` not found.",
-                        data.emotes.error
+                        "{} Command `/{}` not found.",
+                        data.emotes.error,
+                        cut_excess(command_name.replace('`', ""), 16)
                     ))
                 })
             })
@@ -92,7 +98,7 @@ pub async fn help(
     command: Option<String>,
 ) -> MaybeError {
     match command {
-        Some(command) => help_command(ctx, command.as_str()).await?,
+        Some(command) => help_command(ctx, command).await?,
         None => help_all(ctx).await?,
     }
 

@@ -24,3 +24,12 @@ pub fn color_from_env(name: &str) -> Color {
         abort();
     }))
 }
+
+pub fn cut_excess(string: String, n: usize) -> String {
+    if string.len() > n {
+        format!("{}...", &string[..n])
+    }
+    else {
+        string
+    }
+}
