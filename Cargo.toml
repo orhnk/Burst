@@ -51,7 +51,6 @@ features = [
     "chrono",
     "cache",
     "time",
-    "collector",
 ]
 
 [dependencies.songbird]
