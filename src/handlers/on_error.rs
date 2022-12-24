@@ -48,7 +48,7 @@ async fn handle(error: FrameworkError<'_>) {
                 builder.embed(|embed| {
                     embed.color(ctx.data().colors.error);
                     embed.title(format!(
-                        "{} Invalid arguments provided.",
+                        "{} Invalid arguments provided",
                         ctx.data().emotes.error
                     ));
 
