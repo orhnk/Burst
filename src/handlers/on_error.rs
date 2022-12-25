@@ -17,6 +17,7 @@ async fn uncaught_error(ctx: Context<'_>, error: FrameworkError<'_>) {
 
     ctx.send(|builder| {
         builder.reply(true);
+        builder.ephemeral(true);
         builder.embed(|embed| {
             embed.color(data.colors.error);
             embed.title(format!(
