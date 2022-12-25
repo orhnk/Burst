@@ -11,10 +11,12 @@ use poise::{
 use crate::{
     data::Data,
     types::Error,
+    util::string_from_env,
 };
 
 async fn handle(ctx: &Context) -> Result<Data, Error> {
-    ctx.set_activity(Activity::listening("music")).await;
+    ctx.set_activity(Activity::listening(string_from_env("MOTD")))
+        .await;
 
     Data::default().await
 }
