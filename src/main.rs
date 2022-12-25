@@ -1,6 +1,7 @@
 mod client;
 mod commands;
 mod data;
+mod error_handler;
 mod handlers;
 mod types;
 mod util;

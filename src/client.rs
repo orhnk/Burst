@@ -17,6 +17,7 @@ use poise::{
 use crate::{
     commands::commands,
     data::Data,
+    error_handler::error_handler,
     handlers,
     types::{
         Error,
@@ -28,7 +29,7 @@ use crate::{
 #[inline]
 fn prefix_options() -> PrefixFrameworkOptions<Data, Error> {
     PrefixFrameworkOptions {
-        dynamic_prefix: Some(handlers::dynamic_prefix),
+        dynamic_prefix: Some(handlers::dynamic_prefix_handler),
         edit_tracker: Some(EditTracker::for_timespan(Duration::from_secs(60))),
         ..Default::default()
     }
@@ -45,10 +46,10 @@ fn framework_options() -> FrameworkOptions<Data, Error> {
             allowed_mentions.replied_user(false);
             allowed_mentions
         }),
-        event_handler: handlers::event,
-        on_error: handlers::on_error,
-        pre_command: handlers::pre_command,
-        post_command: handlers::post_command,
+        event_handler: handlers::event_handler,
+        on_error: error_handler,
+        pre_command: handlers::pre_command_handler,
+        post_command: handlers::post_command_handler,
         ..Default::default()
     }
 }
@@ -59,7 +60,7 @@ async fn client() -> Result<Arc<Framework<Data, Error>>, Error> {
         .token(string_from_env("BOT_TOKEN"))
         .intents(Intents::GUILD_MESSAGES | Intents::MESSAGE_CONTENT)
         .options(framework_options())
-        .setup(handlers::setup);
+        .setup(handlers::setup_handler);
 
     Ok(builder.build().await?)
 }
