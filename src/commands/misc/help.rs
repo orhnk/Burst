@@ -8,18 +8,6 @@ use crate::{
     util::cut_excess,
 };
 
-async fn help_autocomplete<'a>(
-    ctx: Context<'a>,
-    query: &'a str,
-) -> impl Iterator<Item = String> + 'a {
-    ctx.framework()
-        .options
-        .commands
-        .iter()
-        .filter(move |&command| !command.hide_in_help && command.name.contains(query))
-        .map(|command| command.name.to_string())
-}
-
 async fn help_specific_command(ctx: Context<'_>, command_name: String) -> MaybeError {
     let data = ctx.data();
 
@@ -94,6 +82,18 @@ async fn help_all_commands(ctx: Context<'_>) -> MaybeError {
     ctx.say("not implemented yet lol cope").await?;
 
     Ok(())
+}
+
+async fn help_autocomplete<'a>(
+    ctx: Context<'a>,
+    query: &'a str,
+) -> impl Iterator<Item = String> + 'a {
+    ctx.framework()
+        .options
+        .commands
+        .iter()
+        .filter(move |&command| !command.hide_in_help && command.name.contains(query))
+        .map(|command| command.name.to_string())
 }
 
 /// Sends help about a specific command or all commands.
