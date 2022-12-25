@@ -6,7 +6,6 @@ use std::{
 use log::error;
 use poise::serenity_prelude::Color;
 
-#[inline]
 pub fn string_from_env(name: &str) -> String {
     env::var(name).unwrap_or_else(|_| {
         error!("Expected the key '{name}' to be set in the environment.");
