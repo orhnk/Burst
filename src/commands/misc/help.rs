@@ -5,7 +5,7 @@ use crate::{
         Context,
         MaybeError,
     },
-    util::cut_excess,
+    utils::cut_excess,
 };
 
 async fn help_specific_command(ctx: Context<'_>, command_name: String) -> MaybeError {

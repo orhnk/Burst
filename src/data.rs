@@ -16,7 +16,7 @@ use sqlx::{
 
 use crate::{
     types::Error,
-    util::{
+    utils::{
         color_from_env,
         string_from_env,
     },

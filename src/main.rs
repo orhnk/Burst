@@ -4,7 +4,7 @@ mod data;
 mod error_handler;
 mod handlers;
 mod types;
-mod util;
+mod utils;
 
 use env_logger as logger;
 use types::MaybeError;

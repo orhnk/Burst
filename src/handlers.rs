@@ -18,7 +18,7 @@ use crate::{
         FrameworkContext,
         PartialContext,
     },
-    util::string_from_env,
+    utils::string_from_env,
 };
 
 pub fn dynamic_prefix_handler(

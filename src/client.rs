@@ -23,7 +23,7 @@ use crate::{
         Error,
         MaybeError,
     },
-    util::string_from_env,
+    utils::string_from_env,
 };
 
 #[inline]
