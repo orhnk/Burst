@@ -87,6 +87,7 @@ impl Data {
         let default_prefix = string_from_env("DEFAULT_PREFIX");
 
         // Create the tables if they don't exist.
+        // TODO: Make this work.
         //{
         //    sqlx::query!(
         //        r#"image.png
