@@ -11,7 +11,6 @@ use crate::types::{
 /// Syncs the bots app commands globally or for the current guild.
 #[command(
     prefix_command,
-    slash_command,
     track_edits,
     broadcast_typing,
     category = "Owner",
