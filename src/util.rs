@@ -18,7 +18,7 @@ pub fn color_from_env(name: &str) -> Color {
 
     Color::from(u32::from_str_radix(raw, 16).unwrap_or_else(|_| {
         error!(
-            "Expected the value for the color key '{name}' to be a valid hex code (got '{raw}')."
+            "Expected the value for the color key '{name}' to be a valid hex code (Got '{raw}'.)."
         );
         abort();
     }))
