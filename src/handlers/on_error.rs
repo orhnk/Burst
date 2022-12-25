@@ -20,7 +20,7 @@ async fn uncaught_error(ctx: Context<'_>, error: FrameworkError<'_>) {
         builder.embed(|embed| {
             embed.color(data.colors.error);
             embed.title(format!(
-                "{} An unknown error has occured.",
+                "{} An unknown error has occured",
                 data.emotes.error
             ));
             embed.description("This incident will be reported.")
@@ -35,9 +35,7 @@ async fn handle(error: FrameworkError<'_>) {
 
     if ctx.is_none() {
         match error {
-            FrameworkError::UnknownCommand { msg: message, .. } => {
-                message.react(&error.serenity_context().http, '❓').await;
-            },
+            FrameworkError::UnknownCommand { .. } => {},
 
             _ => error!("An uncaught error has occured: {error:?}"),
         }
@@ -68,6 +66,8 @@ async fn handle(error: FrameworkError<'_>) {
             .await;
         },
 
+        FrameworkError::NotAnOwner { .. } => {},
+        
         _ => uncaught_error(ctx, error).await,
     }
 }
