@@ -26,6 +26,7 @@ pub fn dynamic_prefix_handler(
 ) -> BoxFuture<'_, Result<Option<String>, Error>> {
     Box::pin(async move {
         // TODO
+
         Ok(Some(ctx.data.default_prefix.clone()))
     })
 }
@@ -36,7 +37,11 @@ pub fn event_handler<'a>(
     _framework_ctx: FrameworkContext<'a>,
     _data: &'a Data,
 ) -> BoxFuture<'a, Result<(), Error>> {
-    Box::pin(async move { Ok(()) })
+    Box::pin(async move {
+        // TODO
+
+        Ok(())
+    })
 }
 
 pub fn pre_command_handler(ctx: Context<'_>) -> BoxFuture<'_, ()> {
