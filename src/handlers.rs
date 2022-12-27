@@ -25,9 +25,21 @@ pub fn dynamic_prefix_handler(
     ctx: PartialContext<'_>,
 ) -> BoxFuture<'_, Result<Option<String>, Error>> {
     Box::pin(async move {
-        // TODO
+        let default_prefix = || (ctx.data.default_prefix.clone(),);
 
-        Ok(Some(ctx.data.default_prefix.clone()))
+        let prefix = if let Some(guild_id) = ctx.guild_id {
+            sqlx::query_as::<_, (String,)>(r"SELECT prefix FROM prefixes WHERE id = ?")
+                .bind(guild_id.0 as i64)
+                .fetch_optional(&ctx.data.db)
+                .await?
+                .unwrap_or_else(default_prefix)
+        }
+        else {
+            default_prefix()
+        }
+        .0;
+
+        Ok(Some(prefix))
     })
 }
 

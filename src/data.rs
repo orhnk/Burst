@@ -87,20 +87,16 @@ impl Data {
         let default_prefix = string_from_env("DEFAULT_PREFIX");
 
         // Create the tables if they don't exist.
-        // TODO: Make this work.
-        //{
-        //    sqlx::query!(
-        //        r#"image.png
-        //        CREATE TABLE IF NOT EXISTS prefixes (
-        //            id INTEGER NOT NULL PRIMARY KEY,
-        //            prefix TEXT NOT NULL DEFAULT ?
-        //        )
-        //        "#,
-        //        default_prefix,
-        //    )
-        //    .execute(&db_pool)
-        //    .await?;
-        //}
+        sqlx::query(
+            r"
+                CREATE TABLE IF NOT EXISTS prefixes (
+                    id INTEGER NOT NULL PRIMARY KEY,
+                    prefix TEXT NOT NULL
+                )
+                ",
+        )
+        .execute(&db_pool)
+        .await?;
 
         Ok(Self {
             db: db_pool,
