@@ -24,9 +24,10 @@ pub fn color_from_env(name: &str) -> Color {
     }))
 }
 
-pub fn cut_excess(string: String, n: usize) -> String {
+pub fn cut_excess(mut string: String, n: usize) -> String {
     if string.len() > n {
-        format!("{}...", &string[..n])
+        string.truncate(n);
+        format!("{string}...")
     }
     else {
         string
