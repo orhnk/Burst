@@ -9,7 +9,8 @@ use poise::serenity_prelude::Color;
 pub fn string_from_env(name: &str) -> String {
     env::var(name).unwrap_or_else(|_| {
         error!("Expected the key '{name}' to be set in the environment.");
-        process::exit(1); // -> exiting with error and cleaning code out to be safer 
+        process::exit(1); // -> exiting with error and cleaning code out to be
+                          // safer
     })
 }
 

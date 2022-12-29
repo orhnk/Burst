@@ -13,13 +13,13 @@ async fn help_specific_command(ctx: Context<'_>, command_name: String) -> MaybeE
 
     let command = ctx.framework().options.commands.iter().find(|&command| {
         !command.hide_in_help
-        && (command
-            .qualified_name
-            .eq_ignore_ascii_case(command_name.as_str())
-        || command
-            .context_menu_name
-            .unwrap_or("\0")
-            .eq_ignore_ascii_case(command_name.as_str()))
+            && (command
+                .qualified_name
+                .eq_ignore_ascii_case(command_name.as_str())
+                || command
+                    .context_menu_name
+                    .unwrap_or("\0")
+                    .eq_ignore_ascii_case(command_name.as_str()))
     });
 
     ctx.send(|builder| {
@@ -103,7 +103,7 @@ async fn help_autocomplete<'a>(
 pub async fn help(
     ctx: Context<'_>,
     #[description = "The command to get help about. Leave blank if you want a list of all \
-        commands."]
+                     commands."]
     #[autocomplete = "help_autocomplete"]
     command: Option<String>,
 ) -> MaybeError {
