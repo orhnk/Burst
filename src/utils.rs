@@ -1,6 +1,6 @@
 use std::{
     env,
-    process::abort,
+    process,
 };
 
 use log::error;
@@ -9,7 +9,7 @@ use poise::serenity_prelude::Color;
 pub fn string_from_env(name: &str) -> String {
     env::var(name).unwrap_or_else(|_| {
         error!("Expected the key '{name}' to be set in the environment.");
-        abort();
+        process::exit(1); // -> exiting with error and cleaning code out to be safer 
     })
 }
 
@@ -20,7 +20,7 @@ pub fn color_from_env(name: &str) -> Color {
         error!(
             "Expected the value for the color key '{name}' to be a valid hex code (Got '{raw}'.)."
         );
-        abort();
+        process::exit(1); // -> Same thing on top
     }))
 }
 
