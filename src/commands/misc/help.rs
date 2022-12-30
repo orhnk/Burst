@@ -23,9 +23,9 @@ async fn help_specific_command(ctx: Context<'_>, command_name: String) -> MaybeE
     });
 
     ctx.send(|builder| {
+        builder.reply(true);
         match command {
             None => {
-                builder.reply(true);
                 builder.ephemeral(true);
                 builder.embed(|embed| {
                     embed.color(data.colors.error);
