@@ -57,7 +57,7 @@ fn framework_options() -> FrameworkOptions<Data, Error> {
 #[inline]
 async fn client() -> Result<Arc<Framework<Data, Error>>, Error> {
     let builder = Framework::builder()
-        .token(string_from_env("BURST_BOT_TOKEN"))
+        .token(string_from_env("BOT_TOKEN"))
         .intents(Intents::GUILD_MESSAGES | Intents::MESSAGE_CONTENT)
         .options(framework_options())
         .setup(handlers::setup_handler);
