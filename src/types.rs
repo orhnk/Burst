@@ -4,7 +4,7 @@ use poise::Command;
 
 use crate::data::Data;
 
-pub type Error = Box<dyn StdErr + Send + Sync>; // Why There is a Sync? Errors do not have to be mutable?
+pub type Error = Box<dyn StdErr + Send + Sync>;
 
 pub type Context<'a> = poise::Context<'a, Data, Error>;
 
